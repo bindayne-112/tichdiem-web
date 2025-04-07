@@ -14,6 +14,9 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
 
         // Lấy ngày giờ hiện tại và chuyển thành chuỗi ISO
         let currentDate = new Date().toISOString();
+        
+        // In ra console để kiểm tra dữ liệu trước khi gửi
+        console.log("Dữ liệu gửi đi:", { phone: phone, points: points, date: currentDate });
 
         // Gửi dữ liệu lên Google Sheets qua Web App
         fetch('https://script.google.com/macros/s/AKfycbydydvlWwa5sM_N8_ufWNk7kfAZ7UclZkJJ-SbbKXtj5z2VXb9YtjNGXPd0HfOBflBDtQ/exec', {
