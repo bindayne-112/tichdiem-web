@@ -13,12 +13,12 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
         message.style.color = 'green';
 
         // Gửi dữ liệu lên Google Sheets qua Web App
-        fetch('https://script.google.com/macros/s/AKfycbydydvlWwa5sM_N8_ufWNk7kfAZ7UclZkJJ-SbbKXtj5z2VXb9YtjNGXPd0HfOBflBDtQ/exec', {  // Thay thế 'YOUR_WEB_APP_URL' bằng URL của Web App bạn đã nhận ở bước trước
+        fetch('https://script.google.com/macros/s/AKfycbydydvlWwa5sM_N8_ufWNk7kfAZ7UclZkJJ-SbbKXtj5z2VXb9YtjNGXPd0HfOBflBDtQ/exec', {  
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ phone: phone, points: points })
+            body: JSON.stringify({ phone: phone, points: points })  // Đảm bảo dữ liệu gửi đi đúng cách
         })
         .then(response => response.json())
         .then(data => {
