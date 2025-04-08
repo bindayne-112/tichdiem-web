@@ -1,16 +1,16 @@
 document.getElementById('phoneForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Ngừng gửi form
 
-    let phone = document.getElementById('phone').value;
-    let message = document.getElementById('message');
+    let phone = document.getElementById('phone').value;  // Lấy số điện thoại
+    let message = document.getElementById('message');  // Đoạn thông báo
 
     if (phone) {
-        let points = parseInt(localStorage.getItem('points') || '0');
-        points += 1;
-        localStorage.setItem('points', points);
+        let points = parseInt(localStorage.getItem('points') || '0');  // Lấy điểm hiện tại
+        points += 1;  // Tăng điểm lên 1
+        localStorage.setItem('points', points);  // Lưu lại điểm mới
 
         message.textContent = `Cảm ơn! Số điện thoại ${phone} đã được lưu và bạn sẽ nhận ${points} điểm.`;
-        message.style.color = 'green';
+        message.style.color = 'green';  // Thông báo thành công
 
         // Lấy ngày giờ hiện tại và chuyển thành chuỗi ISO
         let currentDate = new Date().toISOString();
@@ -34,7 +34,7 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
             console.error('Lỗi khi gửi dữ liệu:', error);
         });
     } else {
-        message.textContent = 'Vui lòng nhập số điện thoại!';
+        message.textContent = 'Vui lòng nhập số điện thoại!';  // Thông báo lỗi nếu không có số điện thoại
         message.style.color = 'red';
     }
 });
