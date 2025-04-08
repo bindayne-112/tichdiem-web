@@ -15,12 +15,8 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
         // Lấy ngày giờ hiện tại và chuyển thành chuỗi ISO
         let currentDate = new Date().toISOString();
 
-        // Dùng proxy CORS (cors-anywhere)
-        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        const targetUrl = 'https://script.google.com/macros/s/AKfycbydydvlWwa5sM_N8_ufWNk7kfAZ7UclZkJJ-SbbKXtj5z2VXb9YtjNGXPd0HfOBflBDtQ/exec';
-
         // Gửi dữ liệu lên Google Sheets qua Web App
-        fetch(proxyUrl + targetUrl, {
+        fetch('https://script.google.com/macros/s/AKfycbyM01CniSZasXlvr-YDgrJZkUowawIPdM7A_w-nq0GryyjBwvSOXNTt_W-2eUhyFtuf/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
