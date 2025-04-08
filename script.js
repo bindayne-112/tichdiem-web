@@ -15,15 +15,18 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
         // Lấy ngày giờ hiện tại và chuyển thành chuỗi ISO
         let currentDate = new Date().toISOString();
 
+        // Tạo FormData và gửi dưới dạng POST
+        let formData = new FormData();
+        formData.append('phone', phone);  // Gửi số điện thoại
+        formData.append('points', points);  // Gửi điểm tích lũy
+        formData.append('date', currentDate);  // Gửi ngày giờ
+
         // Gửi dữ liệu lên Google Sheets qua Web App
         fetch('https://script.google.com/macros/s/AKfycbywEXAaHiI3m52iJe2N-vvuWOkJ18vc69S9Hn009-4MKirKq0YQAOpke-uS0Tw_zoHztQ/exec', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ phone: phone, points: points, date: currentDate })  // Gửi dữ liệu dưới dạng JSON
+            body: formData  // Gửi dữ liệu dưới dạng FormData
         })
-        .then(response => response.json())
+        .then(response => response.text())  // Đảm bảo bạn xử lý phản hồi đúng
         .then(data => {
             console.log('Dữ liệu đã được gửi thành công:', data);
         })
