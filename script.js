@@ -16,7 +16,7 @@ document.getElementById('phoneForm').addEventListener('submit', function(event) 
         let currentDate = new Date().toISOString();
 
         // Gửi dữ liệu lên Google Sheets qua Web App
-        fetch('https://script.google.com/macros/s/AKfycbyM01CniSZasXlvr-YDgrJZkUowawIPdM7A_w-nq0GryyjBwvSOXNTt_W-2eUhyFtuf/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbywEXAaHiI3m52iJe2N-vvuWOkJ18vc69S9Hn009-4MKirKq0YQAOpke-uS0Tw_zoHztQ/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
