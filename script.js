@@ -1,4 +1,4 @@
-
+// Kiểm tra mã QR khi vừa mở trang
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich");
@@ -9,12 +9,12 @@ window.onload = function () {
     .then(res => res.json())
     .then(data => {
       if (data.status === "USED") {
-        document.body.innerHTML = \`
+        document.body.innerHTML = `
           <div style="padding: 2em; text-align: center; font-family: sans-serif;">
             <h2>⚠️ Mã tích điểm đã được sử dụng</h2>
             <p>Mỗi mã chỉ được dùng một lần. Liên hệ nhân viên nếu bạn cần hỗ trợ.</p>
           </div>
-        \`;
+        `;
       }
     })
     .catch(() => {
@@ -22,25 +22,29 @@ window.onload = function () {
     });
 };
 
+// Gửi dữ liệu khi nhấn "Tích điểm" bằng GET (tránh lỗi CORS)
 function submitData() {
   const phone = document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich");
 
   if (!phone || !maTich) {
-    alert("Vui lòng nhập số điện thoại hợp lệ hoặc đường link sai.");
+    alert("Vui lòng nhập số điện thoại hoặc mã không hợp lệ.");
     return;
   }
 
-  fetch("https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: "phone=" + encodeURIComponent(phone) + "&code=" + encodeURIComponent(maTich)
-  });
+  const url = `https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec?ghi=1&phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(maTich)}`;
 
-  // Hiển thị thành công ngay sau khi gửi (vì không đọc được phản hồi khi dùng no-cors)
-  document.getElementById('result').innerText = "✅ Đã gửi thông tin tích điểm! Vui lòng kiểm tra lại bảng.";
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "OK") {
+        document.getElementById("result").innerText = "✅ Tích điểm thành công!";
+      } else {
+        document.getElementById("result").innerText = "⚠️ " + data.message;
+      }
+    })
+    .catch(() => {
+      document.getElementById("result").innerText = "❌ Lỗi kết nối. Thử lại sau.";
+    });
 }
