@@ -1,11 +1,9 @@
-// Kiểm tra mã QR khi vừa mở trang
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich");
 
   if (!maTich) return;
 
-  // Kiểm tra mã QR đã dùng chưa (GET)
   fetch(`https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec?check=1&code=${maTich}`)
     .then(res => res.json())
     .then(data => {
@@ -19,36 +17,28 @@ window.onload = function () {
       }
     })
     .catch(() => {
-      document.getElementById('result').innerText = "❌ Không kiểm tra được mã QR. Thử lại sau.";
+      document.getElementById('result').innerText = "⚠️ Không kiểm tra được mã QR. Vui lòng thử lại.";
     });
 };
 
-// Gửi dữ liệu khi nhấn "Tích điểm"
 function submitData() {
   const phone = document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich");
 
-  if (!phone) {
-    alert('Vui lòng nhập số điện thoại');
-    return;
-  }
-
-  if (!maTich) {
-    alert('Liên kết không hợp lệ (thiếu mã tích điểm)');
+  if (!phone || !maTich) {
+    alert("Vui lòng nhập số điện thoại hợp lệ hoặc đường link sai.");
     return;
   }
 
   fetch("https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec", {
     method: "POST",
-    mode: "no-cors", // ✅ CORS-friendly
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     body: "phone=" + encodeURIComponent(phone) + "&code=" + encodeURIComponent(maTich)
-  })
-  .then(() => {
-    document.getElementById('result').innerText = "✅ Tích điểm thành công!";
-  })
-  .catch(() => {
-    document.getElementById('result').innerText = "❌ Lỗi kết nối. Thử lại sau.";
   });
-}
+
+  // Hiển thị thành công ngay sau khi gửi (vì không đọc được phản hồi khi dùng no-cors)
+  document.getElementById('result').innerText = "✅ Đã gửi
