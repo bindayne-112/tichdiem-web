@@ -41,4 +41,5 @@ function submitData() {
   });
 
   // Hiển thị thành công ngay sau khi gửi (vì không đọc được phản hồi khi dùng no-cors)
-  document.getElementById('result').innerText = "✅ Đã gửi
+  document.getElementById('result').innerText = "✅ Đã gửi thông tin tích điểm! Vui lòng kiểm tra lại bảng.";
+}
