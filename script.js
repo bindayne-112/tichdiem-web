@@ -39,19 +39,15 @@ function submitData() {
   }
 
   fetch("https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: "phone=" + encodeURIComponent(phone) + "&code=" + encodeURIComponent(maTich)
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "OK") {
-      document.getElementById('result').innerText = "✅ Tích điểm thành công!";
-    } else {
-      document.getElementById('result').innerText = "⚠️ " + data.message;
-    }
-  })
-  .catch(() => {
-    document.getElementById('result').innerText = "❌ Lỗi kết nối. Thử lại sau.";
-  });
-}
+  method: "POST",
+  mode: "no-cors", // ✅ CHÍNH ĐIỂM QUAN TRỌNG
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: "phone=" + encodeURIComponent(phone) + "&code=" + encodeURIComponent(maTich)
+})
+.then(() => {
+  document.getElementById('result').innerText = "✅ Tích điểm thành công!";
+})
+.catch(() => {
+  document.getElementById('result').innerText = "❌ Lỗi kết nối. Thử lại sau.";
+});
+
