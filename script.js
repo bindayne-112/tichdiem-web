@@ -15,6 +15,13 @@ window.onload = function () {
             <p>Mỗi mã chỉ được dùng một lần. Liên hệ nhân viên nếu bạn cần hỗ trợ.</p>
           </div>
         `;
+      } else if (data.status === "INVALID") {
+        document.body.innerHTML = `
+          <div style="padding: 2em; text-align: center; font-family: sans-serif;">
+            <h2>🚫 Mã QR không hợp lệ</h2>
+            <p>Mã này không tồn tại hoặc đã bị sai. Vui lòng thử lại.</p>
+          </div>
+        `;
       }
     })
     .catch(() => {
@@ -22,7 +29,7 @@ window.onload = function () {
     });
 };
 
-// Gửi dữ liệu khi nhấn "Tích điểm" bằng GET (tránh lỗi CORS)
+// Gửi dữ liệu khi nhấn "Tích điểm"
 function submitData() {
   const phone = document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
