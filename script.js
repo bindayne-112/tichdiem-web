@@ -5,7 +5,7 @@ window.onload = function () {
 
   if (!maTich) return;
 
-  fetch(`https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec?check=1&code=${maTich}`)
+  fetch(`https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?check=1&code=${maTich}`)
     .then(res => res.json())
     .then(data => {
       if (data.status === "USED") {
