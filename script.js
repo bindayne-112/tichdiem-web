@@ -1,11 +1,11 @@
 // Kiểm tra mã QR khi vừa mở trang
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const maTich = params.get("tich");
+  const code = params.get("tich"); // vẫn lấy từ URL ?tich=
 
-  if (!maTich) return;
+  if (!code) return;
 
-  fetch(`https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?check=1&tich=${maTich}`)
+  fetch(`https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?check=1&code=${code}`)
     .then(res => res.json())
     .then(data => {
       if (data.status === "USED") {
@@ -16,7 +16,12 @@ window.onload = function () {
           </div>
         `;
       } else if (data.status === "INVALID") {
-        document.getElementById('result').innerText = "⚠️ Mã QR không hợp lệ.";
+        document.body.innerHTML = `
+          <div style="padding: 2em; text-align: center; font-family: sans-serif;">
+            <h2>🚫 Mã không hợp lệ</h2>
+            <p>Vui lòng thử lại với mã QR đúng từ nhân viên.</p>
+          </div>
+        `;
       }
     })
     .catch(() => {
@@ -24,18 +29,18 @@ window.onload = function () {
     });
 };
 
-// Gửi dữ liệu khi nhấn "Tích điểm" bằng GET (tránh lỗi CORS)
+// Gửi dữ liệu khi nhấn "Tích điểm"
 function submitData() {
   const phone = document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
-  const maTich = params.get("tich");
+  const code = params.get("tich"); // vẫn lấy từ URL
 
-  if (!phone || !maTich) {
+  if (!phone || !code) {
     alert("Vui lòng nhập số điện thoại hoặc mã không hợp lệ.");
     return;
   }
 
-  const url = `https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?ghi=1&phone=${encodeURIComponent(phone)}&tich=${encodeURIComponent(maTich)}`;
+  const url = `https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?ghi=1&phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(code)}`;
 
   fetch(url)
     .then(res => res.json())
