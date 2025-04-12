@@ -5,7 +5,7 @@ window.onload = function () {
 
   if (!maTich) return;
 
-  fetch(`https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?check=1&code=${maTich}`)
+  fetch(`https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?check=1&tich=${maTich}`)
     .then(res => res.json())
     .then(data => {
       if (data.status === "USED") {
@@ -33,7 +33,7 @@ function submitData() {
     return;
   }
 
-  const url = `https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?ghi=1&phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(maTich)}`;
+  const url = `https://script.google.com/macros/s/AKfycbysKdONReVQTU3P7Y0jLuKckYqbXItdj53O6ETolZ6B0qoLO0OWmV7FQ0pO7s14AtQ4/exec?ghi=1&phone=${encodeURIComponent(phone)}&tich=${encodeURIComponent(maTich)}`;
 
   fetch(url)
     .then(res => res.json())
