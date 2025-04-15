@@ -7,7 +7,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
+
 .container {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 2em;
@@ -15,23 +17,40 @@ body {
   text-align: center;
   width: 90%;
   max-width: 400px;
+
+  /* ✅ Fix lệch popup trên điện thoại */
+  margin-top: 60px;
 }
+
 input {
   padding: 10px;
   width: 90%;
   margin: 1em 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
 }
+
 button {
   background-color: orange;
   border: none;
   padding: 10px 20px;
   color: white;
   cursor: pointer;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
+
+button:hover {
+  background-color: #e69500;
+}
+
 .logo {
   max-width: 120px;
   margin-bottom: 10px;
 }
+
 /* ✅ Popup hiệu ứng chính giữa màn hình */
 .popup {
   position: fixed;
@@ -47,19 +66,24 @@ button {
   font-size: 18px;
   z-index: 9999;
   animation: popup-in 0.4s ease-out;
+  min-width: 280px;
 }
+
 .popup-content {
   color: #1a8917;
   font-weight: bold;
 }
+
 .popup.hide {
   animation: popup-out 0.3s ease-in;
   opacity: 0;
 }
+
 @keyframes popup-in {
   from { opacity: 0; transform: translate(-50%, -60%); }
   to   { opacity: 1; transform: translate(-50%, -50%); }
 }
+
 @keyframes popup-out {
   from { opacity: 1; }
   to   { opacity: 0; }
