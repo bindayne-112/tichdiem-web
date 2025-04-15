@@ -34,7 +34,7 @@ window.onload = function () {
 
 // 2. Gửi dữ liệu khi nhấn nút "Tích điểm"
 function submitData() {
-  const phone = document.getElementById('phone').value.trim();
+  const phone = "'" + document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich") || params.get("code");
 
