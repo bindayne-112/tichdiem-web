@@ -1,13 +1,12 @@
-// ✅ script.js
+// ✅ script.js có hiệu ứng popup đẹp khi tích điểm thành công
 
 // 1. Khi trang vừa mở, kiểm tra mã QR (nếu có trong URL)
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const maTich = params.get("tich") || params.get("code"); // hỗ trợ ?tich=... hoặc ?code=...
+  const maTich = params.get("tich") || params.get("code");
 
-  if (!maTich) return; // Nếu ko có mã, thoát luôn
+  if (!maTich) return;
 
-  // Gọi API check mã
   fetch(`https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec?check=1&code=${maTich}`)
     .then(res => res.json())
     .then(data => {
@@ -47,22 +46,36 @@ function submitData() {
     return;
   }
 
-  // URL Ghi điểm (mỗi lần = 10 điểm)
   const url = `https://script.google.com/macros/s/AKfycbzgrAJB266q718FuMZG6Cnu5pMFsh6XbnlGD8VTt1pQ4pIfftGcCdyBkoKlxyAvRPxUzw/exec?ghi=1&phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(maTich)}`;
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
       if (data.status === "OK") {
-        // ✅ Hiển thị tổng điểm
-        document.getElementById("result").innerText =
-          `✅ Tích điểm thành công!\nTổng điểm hiện tại: ${data.tongdiem} điểm.`;
+        showPopup(`
+          ✅ Tích điểm thành công!<br>
+          <small>SĐT: ${phone.replace("'", "")}</small><br>
+          ⭐ Tổng điểm: <b>${data.tongdiem}</b> điểm
+        `);
+        document.getElementById("result").innerText = "";
       } else {
-        // Thông báo lỗi
         document.getElementById("result").innerText = "⚠️ " + data.message;
       }
     })
     .catch(() => {
       document.getElementById("result").innerText = "❌ Lỗi kết nối. Thử lại sau.";
     });
+}
+
+// 3. Hiển thị popup ở giữa màn hình
+function showPopup(message) {
+  const popup = document.createElement("div");
+  popup.className = "popup";
+  popup.innerHTML = `<div class="popup-content">${message}</div>`;
+  document.body.appendChild(popup);
+
+  setTimeout(() => {
+    popup.classList.add("hide");
+    setTimeout(() => popup.remove(), 500);
+  }, 3000);
 }
