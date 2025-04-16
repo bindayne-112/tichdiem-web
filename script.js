@@ -59,7 +59,7 @@ function submitData() {
         `);
 
         // ✅ Gửi tin nhắn Zalo OA
-        const accessTokenZalo = "TBTb5j4mccfmj6CTrJsVO76yPXx8UFqdAFn01zm2ndiJza9WyN7fHJ6MKt2VQgbhOgmNO8Tba6DWdXTseMAvIN-K1sJPOfzUA902UzPn_a4sgNz_zNRx2JlqV0-P0EStEOWP0VeDXoSEZXiDh6_ZArQyTbslQzXZMvHsOhndsq5pdrvaq1ghV23x45Np2QnU5E0tGjGZcLepmHqczo2XH5ZJDsRYKuv4GQuhSh4hh7bY_093pHU3VZNa1Npu7VrsMULG29W0mtDwvqbmhnBp1rNRKHxr7SHb4Db67UWxyZuHl7Caz4FxKYIMPblTHkvrEQLjOE1t-6OWisvWzc7RVao4HrMpUVrsKw9BQgLnn6v1jsqNkc7HTK2fLsMnTlTaROXCT8juzdvjhdiSi4NmPtsLNa5jbx7CJzSed6q"; // ← Thay bằng token thật
+        const accessTokenZalo = "041VGZ16Ntq4Grb9D4jQTmLBN4ef40026XTuENjz0sGCU086ONqSOI00V3r3Von35YXdELvoOcrb2ZuM5rDyI7OaF281LKrWHb966dOo0M0LR60EBYuyT61DFqiw5JbgLXL6CZPpCszo3r9NH7uxOnLZVGfEAtjqDY839rnpUK0F0JuvFGHC65XX2NbZ4WiG8av2Kse7EH0nUpz3HIv2U3HO5G8FKNbfDIm58bbM01SIKbGkOGecPbDzJ1mrE4vaPMKtNJO1T0TyPHSyJMTHG10P63yZ67jT45m926OU0c4NVNmZOnKu7JbEUo4FB0qVItjRNWSFMGfNJaTJ5mWIDLDfKMit3XSzMbneK3j112feCtvU8saZ7G8mCmmsNbbw"; // ← Thay bằng token thật
         const sdt84 = "84" + phone.replace(/^'0/, "");
         const noiDung = `🎉 Bạn vừa tích 10 điểm tại Bánh Mì Ông Kòi!\n⭐ Tổng điểm: ${data.tongdiem} điểm.`;
 
