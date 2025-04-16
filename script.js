@@ -33,7 +33,7 @@ window.onload = function () {
 
 // 2. Gửi dữ liệu khi nhấn nút "Tích điểm"
 function submitData() {
-  const phone = "'" + document.getElementById('phone').value.trim();
+  const phone = document.getElementById('phone').value.trim();
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich") || params.get("code");
 
@@ -60,7 +60,7 @@ function submitData() {
 
         // ✅ Gửi tin nhắn Zalo OA
         const accessTokenZalo = "08VISVWRY2G4XDHw_1QDBWMCqNdXLDvINBtcKzrHncTRdiLLn6kLKdUGhLZqMV08V83U5EnPumLMelqRzZdr5L_WfIln8fahIR660-rztJzWZ-uew5o_7qwtbqlnJ916Ge-y6Fq8xJ96bFm5_bhs07gAx13zKhqaRgs73vHJsneLaDXDyctPIb-EvaloNkjoI83pPh5zya8XvFn3eNQY4Zg3e176JPOZGT6wFRu8YIWMse8qY1cU42FceJo60P885isN6umAhqGdvQ1hY3wcLHZshLx_3f5rP-UMGUG8o5P5mSPpo2Rx9Mw_fXpKNgHBM8697iTcf2Xz_eyc_oRNC0Rsp3-11k4BVf_93jfpwmnolz40rNh04o-0t0MYTVmr8hxn9R1EuNHNjz52vrZW44ESs4OtELVAgcbc_WEE8m"; // ← Thay bằng token thật
-        const sdt84 = "84" + phone.replace(/^'0/, "").replace(/^0/, "");
+        cconst sdt84 = "84" + phone.replace(/^0/, "");
         const noiDung = `🎉 Bạn vừa tích 10 điểm tại Bánh Mì Ông Kòi!\n⭐ Tổng điểm: ${data.tongdiem} điểm.`;
 
         guiTinNhanZalo(accessTokenZalo, sdt84, noiDung);
