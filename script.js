@@ -1,4 +1,4 @@
-// ✅ script.js có hiệu ứng popup đẹp khi tích điểm thành công
+// ✅ script.js có hiệu ứng popup + gửi tin nhắn Zalo OA
 
 // 1. Khi trang vừa mở, kiểm tra mã QR (nếu có trong URL)
 window.onload = function () {
@@ -57,6 +57,14 @@ function submitData() {
           <small>SĐT: ${phone.replace("'", "")}</small><br>
           ⭐ Tổng điểm: <b>${data.tongdiem}</b> điểm
         `);
+
+        // ✅ Gửi tin nhắn Zalo OA
+        const accessTokenZalo = "ACCESS_TOKEN_CUA_BAN"; // ← Thay bằng token thật
+        const sdt84 = "84" + phone.replace(/^'0/, "");
+        const noiDung = `🎉 Bạn vừa tích 10 điểm tại Bánh Mì Ông Kòi!\n⭐ Tổng điểm: ${data.tongdiem} điểm.`;
+
+        guiTinNhanZalo(accessTokenZalo, sdt84, noiDung);
+
         document.getElementById("result").innerText = "";
       } else {
         document.getElementById("result").innerText = "⚠️ " + data.message;
@@ -78,4 +86,31 @@ function showPopup(message) {
     popup.classList.add("hide");
     setTimeout(() => popup.remove(), 500);
   }, 3000);
+}
+
+// 4. Gửi tin nhắn Zalo OA
+function guiTinNhanZalo(oaAccessToken, phone, message) {
+  const url = "https://openapi.zalo.me/v3.0/oa/message/cs";
+  const body = {
+    recipient: { user_id_by_phone: phone },
+    message: {
+      text: message
+    }
+  };
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "access_token": oaAccessToken
+    },
+    body: JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log("📨 Gửi Zalo thành công:", data);
+    })
+    .catch(error => {
+      console.error("❌ Lỗi gửi Zalo:", error);
+    });
 }
