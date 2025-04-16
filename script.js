@@ -54,7 +54,7 @@ function submitData() {
       if (data.status === "OK") {
         showPopup(`
           ✅ Tích điểm thành công!<br>
-          <small>SĐT: ${phone.replace("'", "")}</small><br>
+          <small>SĐT: ${phone}</small><br>
           ⭐ Tổng điểm: <b>${data.tongdiem}</b> điểm
         `);
 
