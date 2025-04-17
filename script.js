@@ -1,4 +1,32 @@
-// ✅ script.js có hiệu ứng popup + gửi tin nhắn Zalo OA
+// ✅ script.js có hiệu ứng popup + gửi tin nhắn Zalo OA (tự động lấy token)
+
+// --- ZALO CONFIG ---
+const appId = "542633655828023051";
+const appSecret = "8KVhSsLkVs557v0AX6Gd";
+const refreshToken = "lFtg1zEfD3cu_kmCrwGnCxdswG_AkLjQtetQ6DoVRMNqZV0HuOekNlgxjWBuYXntwxkd4DoX26_MyjrRwlzH8SJvY7_imHO5t9Q-Py2X9mxFXQPsehqT4PACbcdycXWGqzM4PDp4M0toz-0poQLiQ-oDrotRjcn6tuR4AlIJRaFXdBKe_fGrHk35YYV4a555xihRSVlEGnsVujTgY_0DBOU_k4hefmyUzeI5HTdG2YVKWu9FrfGz2Uowkp3ae3TaygoJ0y2lJ6NM-UGj-z923TRXo5EosrC9jk_RRft-MLMam-GgmFPUQFh6oZVunXHBxToSSCNg7oxyfP18bhHGAwRcpK6ZmXa9dy6QQl3c9o_ggQrL-lWnOVRjXGFzvmryqhNK7UYp2224bjnCdOu2B5rYxGtLiJ8-";
+let cachedToken = null;
+
+async function getAccessToken() {
+  if (cachedToken) return cachedToken;
+  const response = await fetch("https://oauth.zaloapp.com/v4/oa/access_token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      app_id: appId,
+      app_secret: appSecret,
+      refresh_token: refreshToken,
+      grant_type: "refresh_token"
+    })
+  });
+  const data = await response.json();
+  if (data.access_token) {
+    cachedToken = data.access_token;
+    return cachedToken;
+  } else {
+    console.error("Lỗi lấy access token:", data);
+    throw new Error("Không thể lấy access token");
+  }
+}
 
 // 1. Khi trang vừa mở, kiểm tra mã QR (nếu có trong URL)
 window.onload = function () {
@@ -50,7 +78,7 @@ function submitData() {
 
   fetch(url)
     .then(res => res.json())
-    .then(data => {
+    .then(async data => {
       if (data.status === "OK") {
         showPopup(`
           ✅ Tích điểm thành công!<br>
@@ -58,12 +86,14 @@ function submitData() {
           ⭐ Tổng điểm: <b>${data.tongdiem}</b> điểm
         `);
 
-        // ✅ Gửi tin nhắn Zalo OA
-        const accessTokenZalo = "NVBoPhkCCWjPyVHjlu4t0LZvyMwYo3jlEBYCIQIf9My0XfHNafSZPWICdqoVlY0X59AH9xY563Cvc84AYBa-5co0aX3Bko0CNhMh4FcG4Yr1juHBsevFRKo2naV7k79gGvkvU-Uo5MSBpODQZlL5S2tVctwuxGvF2VUONvR92a0isBXIYVq9KmJdbcgJmo9n7Uw2Lg_-5si1yRS6hT4q2ZRXlsodspjUCDs-NuZqAM88v8fLdjWeKIIbzaB0kaulMQhkDU-4T0HwXV1edE0wHYd5y62GuMXaCz7iTBEqUaK5ZSX2gPnzQ2spvKQcdb9218xtPBooIWeYcUONWuDm6o7poYAysWiTBkYESfUP1LmjdC58bQm4VtAziNdqjZfgQhgdM_gAPZ0VjQSKkP8a4mEiXNqjr4ZpNhsKD0m"; // ← Thay bằng token thật
         const sdt84 = "84" + phone.replace(/^0/, "");
         const noiDung = `🎉 Bạn vừa tích 10 điểm tại Bánh Mì Ông Kòi!\n⭐ Tổng điểm: ${data.tongdiem} điểm.`;
-
-        guiTinNhanZalo(accessTokenZalo, sdt84, noiDung);
+        try {
+          const token = await getAccessToken();
+          guiTinNhanZalo(token, sdt84, noiDung);
+        } catch (err) {
+          console.error("Không gửi được Zalo vì lỗi token:", err);
+        }
 
         document.getElementById("result").innerText = "";
       } else {
