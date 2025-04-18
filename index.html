@@ -1,20 +1,126 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tích điểm Bánh Mì Ông Kòi</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: url('https://i.imgur.com/fjHyipX.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 35px 28px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    .logo {
+      width: 130px;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #d35400;
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+    input[type="tel"] {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+    button {
+      background: linear-gradient(to right, #f39c12, #e67e22);
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      font-size: 17px;
+      border-radius: 14px;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background: #ffffff;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      z-index: 9999;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .popup.active {
+      display: block;
+    }
+    .popup h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #27ae60;
+    }
+    .popup p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" class="logo" alt="Logo">
+    <img src="logo.png" class="logo" alt="Logo Ông Kòi" />
     <h2>Tích điểm Bánh Mì Ông Kòi</h2>
-    <input type="tel" id="phone" placeholder="Nhập số điện thoại">
+    <input type="tel" id="phone" placeholder="Nhập số điện thoại" />
     <button onclick="submitData()">Tích điểm</button>
     <p id="result"></p>
   </div>
 
+  <div id="popup" class="popup">
+    <h3>✅ Tích điểm thành công!</h3>
+    <p id="popupContent">Bạn đã có <strong>0</strong> điểm</p>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    function showPopup(message) {
+      const popup = document.getElementById("popup");
+      const content = document.getElementById("popupContent");
+      content.innerHTML = message;
+      popup.classList.add("active");
+      setTimeout(() => {
+        popup.classList.remove("active");
+      }, 4000);
+    }
+  </script>
 </body>
 </html>
