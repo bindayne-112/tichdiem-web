@@ -69,6 +69,10 @@ function submitData() {
     alert("Vui lòng nhập số điện thoại.");
     return;
   }
+if (!/^0[0-9]{9}$/.test(phone)) {
+  alert("⚠️ Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số và bắt đầu bằng 0.");
+  return;
+}
   if (!maTich) {
     alert("Không có mã tích điểm trong đường dẫn.");
     return;
