@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -17,7 +16,6 @@
     }
     body {
       background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover; no-repeat center center fixed;
       background-size: cover;
       display: flex;
       align-items: center;
@@ -67,6 +65,21 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
+    .loading-spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #ffffff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     #result {
       margin-top: 15px;
       font-size: 15px;
@@ -106,27 +119,13 @@
     <img src="logo.png" class="logo" alt="Logo Ông Kòi" />
     <h2>Tích điểm Bánh Mì Ông Kòi</h2>
     <input type="tel" id="phone" placeholder="Nhập số điện thoại" />
-    <button onclick="submitData()">Tích điểm</button>
+    <button id="submitBtn" onclick="submitData()">
+      <span id="btnText">Tích điểm</span>
+      <span id="loadingSpinner" class="loading-spinner" style="display: none;"></span>
+    </button>
     <p id="result"></p>
   </div>
 
-  <div id="popup" class="popup">
-    <h3>✅ Tích điểm thành công!</h3>
-    <p id="popupContent">Bạn đã có <strong>0</strong> điểm</p>
-  </div>
-
   <script src="script.js"></script>
-  <script>
-    function showPopup(message) {
-      const popup = document.getElementById("popup");
-      const content = document.getElementById("popupContent");
-      content.innerHTML = message;
-      popup.classList.add("active");
-
-      setTimeout(() => {
-        popup.classList.remove("active");
-      }, 4000);
-    }
-  </script>
 </body>
 </html>
