@@ -19,16 +19,30 @@
       min-height: 100vh;
       margin: 0;
     }
+    .logo {
+      max-width: 130px;
+      margin-bottom: 8px; /* ✅ Giảm khoảng cách dưới logo */
+    }
+    .main-title {
+      margin: 5px 0 2px;
+      text-transform: uppercase;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3436; /* ✅ Màu đậm vừa phải, chuyên nghiệp */
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 18px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <img src="logo.png" class="logo" alt="Logo Ông Kòi" />
-    
-    <h2 style="margin-bottom: 0; text-transform: uppercase;">TÍCH ĐIỂM NHÀ KÒI</h2>
-    <p style="margin-top: 5px; font-size: 15px; color: #444;">
-      Bánh Mì Ông "<strong>KÒI</strong>" – Ăn Vào Nhớ "<strong>HÒI</strong>" Đà Nẵng
-    </p>
+
+    <h2 class="main-title">TÍCH ĐIỂM NHÀ KÒI</h2>
+    <p class="subtitle">Bánh Mì Ông "<strong>KÒI</strong>" – Ăn Vào Nhớ "<strong>HÒI</strong>" Đà Nẵng</p>
 
     <input type="tel" id="phone" placeholder="Nhập số điện thoại" />
     <button id="submitBtn" onclick="submitData()">
