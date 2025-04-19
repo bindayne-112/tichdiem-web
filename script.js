@@ -1,4 +1,4 @@
-// ✅ script.js có hiệu ứng popup + gửi tin nhắn Zalo OA (tự động lấy token)
+// ✅ script.js có hiệu ứng loading, popup + gửi tin nhắn Zalo OA (tự động lấy token)
 
 // --- ZALO CONFIG ---
 const appId = "542633655828023051";
@@ -65,16 +65,30 @@ function submitData() {
   const params = new URLSearchParams(window.location.search);
   const maTich = params.get("tich") || params.get("code");
 
+  const btn = document.getElementById("submitBtn");
+  const btnText = document.getElementById("btnText");
+  const spinner = document.getElementById("loadingSpinner");
+
+  // 👉 Hiển thị loading
+  btn.disabled = true;
+  btnText.textContent = "Đang xử lý...";
+  spinner.style.display = "inline-block";
+
   if (!phone) {
     alert("Vui lòng nhập số điện thoại.");
+    resetButton();
     return;
   }
-if (!/^0[0-9]{9}$/.test(phone)) {
-  alert("⚠️ Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số và bắt đầu bằng 0.");
-  return;
-}
+
+  if (!/^0[0-9]{9}$/.test(phone)) {
+    alert("⚠️ Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 số và bắt đầu bằng 0.");
+    resetButton();
+    return;
+  }
+
   if (!maTich) {
     alert("Không có mã tích điểm trong đường dẫn.");
+    resetButton();
     return;
   }
 
@@ -106,7 +120,17 @@ if (!/^0[0-9]{9}$/.test(phone)) {
     })
     .catch(() => {
       document.getElementById("result").innerText = "❌ Lỗi kết nối. Thử lại sau.";
+    })
+    .finally(() => {
+      resetButton();
     });
+
+  // ✅ Reset nút về lại trạng thái ban đầu
+  function resetButton() {
+    btn.disabled = false;
+    btnText.textContent = "Tích điểm";
+    spinner.style.display = "none";
+  }
 }
 
 // 3. Hiển thị popup ở giữa màn hình
