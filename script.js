@@ -178,7 +178,7 @@ function guiTinNhanZalo(oaAccessToken, phone, message) {
 
 // 5. Gửi thông báo Telegram
 function sendTelegramMessage(message) {
-  const telegramBotToken = '7893016048:AAEzofa6mJbPyGUPuI9JNBQKTsMhb7GPD3g'; // ✅ Token thật của bạn
+  const telegramBotToken = '7893016048:AAGofkR0t4acUsz_uy2emmKa_6KLBop_xaY'; // ✅ Token thật của bạn
   const chatId = '6241484252'; // ✅ Chat ID thật của bạn
 
   const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
