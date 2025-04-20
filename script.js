@@ -172,3 +172,27 @@ function guiTinNhanZalo(oaAccessToken, phone, message) {
       console.error("❌ Lỗi gửi Zalo:", error);
     });
 }
+
+// 5. Gửi thông báo Telegram
+function sendTelegramMessage(message) {
+  const telegramBotToken = '7893016048:AAEzofa6mJbPyGUPuI9JNBQKTsMhb7GPD3g'; // ✅ Token thật của bạn
+  const chatId = '734918273'; // ✅ Chat ID thật của bạn
+
+  const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+
+  fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: message
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("✅ Gửi Telegram thành công:", data);
+    })
+    .catch(error => {
+      console.error("❌ Lỗi gửi Telegram:", error);
+    });
+}
