@@ -106,6 +106,9 @@ function submitData() {
 
         const sdt84 = "84" + phone.replace(/^0/, "");
         const noiDung = `🎉 Bạn vừa tích 10 điểm tại Bánh Mì Ông Kòi!\n⭐ Tổng điểm: ${data.tongdiem} điểm.`;
+        // ✅ Gửi Telegram NGAY lập tức
+sendTelegramMessage(`📲 KH vừa tích điểm!\n📞 SĐT: ${phone}\n⭐ Tổng: ${data.tongdiem} điểm`);
+// ⏳ Gửi Zalo (không ảnh hưởng nếu lỗi)
         try {
           const token = await getAccessToken();
           guiTinNhanZalo(token, sdt84, noiDung);
